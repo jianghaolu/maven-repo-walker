@@ -1,0 +1,32 @@
+﻿extends layout
+
+block content
+  script(src='/javascripts/main.js')
+  h5 Browse
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th.col-lg-4 Items (Latest artifact on top)
+        th.col-lg-8 Actions
+    tbody
+      each f in files
+        if (f.dir)
+          tr
+            td
+              a(href="?dir=#{f.path}") #{f.name}
+            td
+        else
+          tr
+            td #{f.name}
+            td
+              a.btn.btn-sm.btn-default(href="view?file=#{f.path}.pom") pom 
+              if (f.jar)
+                a.btn.btn-sm.btn-primary(href="download?file=#{f.path}.jar") jar 
+              if (f.sources)
+                a.btn.btn-sm.btn-primary(href="download?file=#{f.path}-sources.jar") sources 
+              if (f.javadoc)
+                a.btn.btn-sm.btn-primary(href="download?file=#{f.path}-javadoc.jar") javadoc
+              if (f.github)
+                a.btn.btn-sm.btn-warning(href="https://github.com/#{f.github.replace('#', '/commit/')}") View commit
+                a.btn.btn-sm.btn-danger(href="https://github.com/#{f.github.replace('#', '/compare/') + '...master'}") Diff behind master
+                a.btn.btn-sm.btn-info.diff(id="#{f.github}") Select to compare

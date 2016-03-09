@@ -1,0 +1,16 @@
+{
+  "name": "MavenRepoWalker",
+  "version": "0.0.0",
+  "description": "MavenRepoWalker",
+  "main": "app.js",
+  "author": {
+    "name": "jianghlu",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*",
+    "serve-index": "*"
+  }
+}
