@@ -42,6 +42,27 @@ exports.download = function (req, res) {
     filestream.pipe(res);
 }
 
+exports.upload = function (req, res) {
+    var rootPath = path.join(path.resolve(__dirname), '..');
+    var filePath = path.join(rootPath, req.query.file);
+    var dirPath = path.dirname(filePath);
+    if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath);
+    }
+    var body = '';
+    req.on('data', function (data) {
+        body += data;
+    });
+    req.on('end', function () {
+        fs.writeFile(filePath, body, function (err) {
+            if (err !== null) {
+                res.status(400).end(err);
+            }
+            res.status(200).end();
+        });
+    });
+}
+
 var listFiles = function (dir) {
     var rootPath = path.join(path.resolve(__dirname), '../');
     console.log(rootPath);
